@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seongmin — Portfolio</title>
+<meta name="description" content="충북대학교 정보통신공학부 학부생 포트폴리오">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{
+    --bg:#0D0D11; --surface:#16161C; --ink:#ECECEC; --muted:#8A8A93;
+    --faint:#C5C5CC; --line:#24242B; --accent:#8B7BFF; --accent-press:#7A6AF0;
+    --font:'Space Grotesk','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  .container{ max-width:1140px; margin:0 auto; padding:0 36px; display:flex; gap:64px; }
+
+  .sidebar{ flex:0 0 42%; }
+  .sidebar-inner{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:space-between; padding:88px 0 60px; }
+  .eyebrow{ font-size:.92rem; font-weight:700; letter-spacing:0; color:var(--accent); margin:0 0 1.2rem; }
+  .name{ font-weight:700; font-size:clamp(2.5rem,5.5vw,3.4rem); line-height:1; letter-spacing:-.02em; margin:0; }
+  .name .dot{ color:var(--accent); }
+  .role{ margin:1.1rem 0 0; font-size:1.02rem; font-weight:500; color:var(--faint); }
+  .blurb{ margin:1rem 0 0; font-size:.96rem; color:var(--muted); max-width:34ch; line-height:1.6; }
+  .nav{ display:flex; flex-direction:column; gap:18px; }
+  .nav a{ display:flex; align-items:center; gap:16px; width:max-content; }
+  .nav .ln{ width:30px; height:1.5px; background:var(--muted); transition:width .22s ease, background .22s ease; }
+  .nav .lb{ font-size:.9rem; font-weight:600; letter-spacing:0; color:var(--muted); transition:color .22s ease; }
+  .nav a:hover .ln, .nav a.active .ln{ width:56px; background:var(--ink); }
+  .nav a:hover .lb, .nav a.active .lb{ color:var(--ink); }
+  .side-foot{ display:flex; flex-direction:column; gap:18px; }
+  .socials{ display:flex; gap:20px; flex-wrap:wrap; }
+  .socials a{ font-size:.86rem; font-weight:600; letter-spacing:0; color:var(--muted); transition:color .18s ease; }
+  .socials a:hover{ color:var(--accent); }
+  .localtime{ font-size:.74rem; color:#5F5F68; letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px){
+    .container{ flex-direction:column; gap:0; padding:0 26px; }
+    .sidebar{ flex:1; }
+    .sidebar-inner{ position:static; height:auto; padding:64px 0 8px; gap:40px; }
+    .nav{ display:none; }
+  }
+
+  .content{ flex:1; min-width:0; padding:96px 0 80px; }
+  @media (max-width:900px){ .content{ padding:24px 0 64px; } }
+  .section{ margin-bottom:68px; scroll-margin-top:40px; }
+  .section:last-child{ margin-bottom:0; }
+  .s-label{ font-size:.92rem; font-weight:700; letter-spacing:0; color:var(--accent); margin:0 0 1.4rem; }
+  .section p{ margin:0 0 1rem; color:var(--faint); max-width:58ch; }
+  .section p:last-child{ margin-bottom:0; }
+  .skill-group{ margin-bottom:1.4rem; }
+  .skill-group:last-child{ margin-bottom:0; }
+  .sg-label{ font-size:.86rem; letter-spacing:0; color:var(--muted); margin:0 0 .7rem; font-weight:600; }
+  .tags{ display:flex; flex-wrap:wrap; gap:9px; }
+  .tags span{ font-size:.85rem; font-weight:500; padding:6px 13px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--faint); }
+  .projects{ display:flex; flex-direction:column; gap:14px; }
+  .project{ display:block; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px 26px; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .project:hover{ transform:translateY(-3px); border-color:var(--accent); box-shadow:0 16px 38px -26px rgba(139,123,255,.75); }
+  .project:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .p-meta{ font-size:.82rem; letter-spacing:0; color:var(--muted); margin-bottom:.55rem; font-weight:600; }
+  .p-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+  .p-head h3{ font-weight:600; font-size:1.28rem; letter-spacing:-.01em; margin:0; }
+  .p-arrow{ color:var(--accent); flex:none; transition:transform .2s ease; }
+  .project:hover .p-arrow{ transform:translate(3px,-3px); }
+  .project p{ margin:.6rem 0 0; font-size:.94rem; color:var(--muted); max-width:none; }
+  .ptags{ margin-top:.95rem; display:flex; flex-wrap:wrap; gap:11px; }
+  .ptags span{ font-size:.78rem; font-weight:500; color:var(--muted); }
+  .ptags span::before{ content:"#"; opacity:.5; }
+  .links{ display:flex; flex-wrap:wrap; gap:11px; margin-top:1.4rem; }
+  .links a{ font-size:.86rem; font-weight:500; padding:11px 19px; border:1px solid #383842; border-radius:999px; transition:background .18s ease, color .18s ease, border-color .18s ease; }
+  .links a:hover{ background:#fff; color:#0D0D11; border-color:#fff; }
+  .links a.primary{ background:var(--accent); border-color:var(--accent); color:#15131F; }
+  .links a.primary:hover{ background:var(--accent-press); border-color:var(--accent-press); }
+  .foot{ margin-top:64px; padding-top:24px; border-top:1px solid var(--line); font-size:.76rem; color:var(--muted); }
+  @media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } *{ transition:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  ✏️ 여기만 고치면 됩니다.  글자(따옴표 " " 안의 내용)만 바꾸세요.       -->
+<!--  · 쉼표(,)와 따옴표(")는 지우지 마세요.                              -->
+<!--  · 항목을 추가하려면 윗줄을 복사해서 붙여넣으면 됩니다.                  -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+
+  // ── 기본 정보 ──────────────────────────────────────────
+  name:   "Seongmin",                                   // 이름 (큰 제목)
+  role:   "충북대학교 전자정보대학 정보통신공학부",          // 학교 · 전공
+  intro:  "코드와 하드웨어로 문제를 푸는 걸 좋아합니다. 만든 것과 배운 것을 여기에 모았어요.", // 한 줄 소개
+  city:   "Cheongju",                                   // 시계에 표시할 도시
+  timezone: "Asia/Seoul",                               // 시간대
+
+  // ── 링크 (안 쓰는 건 "" 빈칸으로 두면 화면에서 사라집니다) ──
+  github:   "https://github.com/seongmin4409-png",
+  email:    "hello@example.com",                        // ← 본인 이메일로 변경
+  linkedin: "",                                         // 예: "https://www.linkedin.com/in/아이디"
+  resume:   "",                                         // 이력서 PDF 링크 (있으면)
+
+  // ── About 본문 (문단을 줄 단위로 추가/삭제할 수 있어요) ──
+  about: [
+    "안녕하세요. 정보통신공학을 공부하는 학부생입니다. 수업에서 배운 걸 직접 만들어보면서 익히는 걸 좋아합니다.",
+    "이 칸에는 관심 분야나 활동(학회·동아리), 더 배우고 싶은 것 등을 두세 문장으로 적으면 됩니다."
+  ],
+
+  // ── 기술 (그룹 이름과 항목을 자유롭게 바꾸거나 그룹을 추가/삭제하세요) ──
+  skills: {
+    "Languages": ["Verilog", "C/C++", "Python", "Matlab"],
+    "Tools":     ["Git", "Linux", "Vivado"]
+  },
+
+  // ── 프로젝트 (카드 하나가 { } 한 묶음. 복사해서 추가할 수 있어요) ──
+  projects: [
+    {
+      title: "8-bit Processor",
+      meta:  "2025 · 개인 프로젝트",
+      desc:  "Verilog로 단일 사이클 8비트 프로세서를 설계하고 FPGA 보드에서 동작을 확인했습니다.",
+      tags:  ["Verilog", "Vivado", "FPGA"],
+      link:  ""                                          // 깃허브/데모 주소 (있으면)
+    },
+    {
+      title: "Signal Visualizer",
+      meta:  "2024 · 학교 과제",
+      desc:  "MATLAB으로 신호의 FFT와 필터링 결과를 실시간으로 보여주는 도구를 만들었습니다.",
+      tags:  ["Matlab", "DSP"],
+      link:  ""
+    },
+    {
+      title: "UART Chat",
+      meta:  "2024 · 팀 프로젝트",
+      desc:  "C와 Python으로 두 보드를 시리얼 통신으로 연결해 메시지를 주고받는 프로그램을 구현했습니다.",
+      tags:  ["C", "Python", "UART"],
+      link:  ""
+    }
+  ]
+
+};
+</script>
+<!-- ════════════ ✏️ 수정 끝. 아래는 건드리지 않아도 됩니다. ════════════ -->
+
+
+<div class="container">
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <div>
+        <p class="eyebrow">Portfolio</p>
+        <h1 class="name" id="js-name"></h1>
+        <p class="role" id="js-role"></p>
+        <p class="blurb" id="js-blurb"></p>
+      </div>
+      <nav class="nav" aria-label="섹션 이동">
+        <a href="#about"><span class="ln"></span><span class="lb">About</span></a>
+        <a href="#skills"><span class="ln"></span><span class="lb">Skills</span></a>
+        <a href="#projects"><span class="ln"></span><span class="lb">Projects</span></a>
+        <a href="#contact"><span class="ln"></span><span class="lb">Contact</span></a>
+      </nav>
+      <div class="side-foot">
+        <div class="socials" id="js-socials"></div>
+        <div class="localtime"><span id="js-city">Seoul</span> · <span id="clock">--:--:--</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="section" id="about">
+      <p class="s-label">01 / About</p>
+      <div id="js-about"></div>
+    </section>
+    <section class="section" id="skills">
+      <p class="s-label">02 / Skills</p>
+      <div id="js-skills"></div>
+    </section>
+    <section class="section" id="projects">
+      <p class="s-label">03 / Projects</p>
+      <div class="projects" id="js-projects"></div>
+    </section>
+    <section class="section" id="contact">
+      <p class="s-label">04 / Contact</p>
+      <p>인턴십, 협업, 또는 그냥 궁금한 게 있으면 편하게 연락 주세요.</p>
+      <div class="links" id="js-links"></div>
+      <div class="foot" id="js-foot"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+  function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+  function set(id, text){ const e=document.getElementById(id); if(e) e.textContent=text; }
+
+  try{
+    // 이름 + 강조 점
+    const nameEl=document.getElementById('js-name');
+    nameEl.textContent=CONFIG.name;
+    const dot=el('span','dot','.'); nameEl.appendChild(dot);
+
+    set('js-role', CONFIG.role);
+    set('js-blurb', CONFIG.intro);
+    set('js-city', CONFIG.city);
+
+    // About 문단
+    const aboutBox=document.getElementById('js-about');
+    (CONFIG.about||[]).forEach(p=> aboutBox.appendChild(el('p',null,p)));
+
+    // Skills 그룹
+    const skillBox=document.getElementById('js-skills');
+    Object.entries(CONFIG.skills||{}).forEach(([group, items])=>{
+      const g=el('div','skill-group');
+      g.appendChild(el('p','sg-label',group));
+      const tags=el('div','tags');
+      (items||[]).forEach(t=> tags.appendChild(el('span',null,t)));
+      g.appendChild(tags); skillBox.appendChild(g);
+    });
+
+    // Projects 카드
+    const projBox=document.getElementById('js-projects');
+    (CONFIG.projects||[]).forEach(p=>{
+      const card=document.createElement('a');
+      card.className='project';
+      if(p.link){ card.href=p.link; card.target='_blank'; card.rel='noopener'; } else { card.href='#'; }
+      card.appendChild(el('div','p-meta',p.meta||''));
+      const head=el('div','p-head');
+      head.appendChild(el('h3',null,p.title||''));
+      head.appendChild(el('span','p-arrow','↗'));
+      card.appendChild(head);
+      if(p.desc) card.appendChild(el('p',null,p.desc));
+      const tags=el('div','ptags');
+      (p.tags||[]).forEach(t=> tags.appendChild(el('span',null,t)));
+      card.appendChild(tags);
+      projBox.appendChild(card);
+    });
+
+    // 사이드바 링크
+    const socials=document.getElementById('js-socials');
+    function social(label, href){ if(!href) return; const a=el('a',null,label); a.href=href; if(href.indexOf('mailto')!==0){ a.target='_blank'; a.rel='noopener'; } socials.appendChild(a); }
+    social('GitHub', CONFIG.github);
+    social('Email', CONFIG.email ? 'mailto:'+CONFIG.email : '');
+    social('LinkedIn', CONFIG.linkedin);
+
+    // Contact 버튼
+    const links=document.getElementById('js-links');
+    if(CONFIG.email){ const a=el('a','primary','이메일 보내기'); a.href='mailto:'+CONFIG.email; links.appendChild(a); }
+    if(CONFIG.github){ const a=el('a',null,'GitHub'); a.href=CONFIG.github; a.target='_blank'; a.rel='noopener'; links.appendChild(a); }
+    if(CONFIG.resume){ const a=el('a',null,'이력서 (PDF)'); a.href=CONFIG.resume; a.target='_blank'; a.rel='noopener'; links.appendChild(a); }
+
+    // 푸터
+    set('js-foot', '© '+new Date().getFullYear()+' '+CONFIG.name+' · Built with HTML · Hosted on GitHub Pages');
+
+    // 시계
+    const clock=document.getElementById('clock');
+    function tick(){ try{ clock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:CONFIG.timezone,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date()); }catch(e){ clock.textContent=new Date().toLocaleTimeString(); } }
+    tick(); setInterval(tick,1000);
+
+    // 스크롤에 따라 현재 섹션 표시
+    const navLinks=[...document.querySelectorAll('.nav a')];
+    const map=Object.fromEntries(navLinks.map(a=>[a.getAttribute('href').slice(1),a]));
+    const obs=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ navLinks.forEach(l=>l.classList.remove('active')); map[e.target.id]&&map[e.target.id].classList.add('active'); } }); },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    document.querySelectorAll('.section').forEach(s=>obs.observe(s));
+  }catch(err){
+    console.error(err);
+  }
+</script>
+
+<script>
+  // 안전장치: 내용이 안 나오면 (CONFIG에 오타가 있으면) 안내 표시
+  setTimeout(function(){
+    var n=document.getElementById('js-name');
+    if(n && n.textContent.trim()===''){
+      document.body.innerHTML='<div style="max-width:620px;margin:80px auto;padding:0 28px;font-family:sans-serif;color:#ECECEC;line-height:1.7"><h2 style="font-weight:600">내용을 불러오지 못했어요</h2><p style="color:#9A9A93">맨 위 CONFIG 부분에 오타가 있을 수 있어요. 주로 이런 경우입니다:<br>· 줄 끝의 <b>쉼표(,)</b>가 빠짐<br>· 양쪽 <b>따옴표(&quot;)</b> 중 하나가 빠짐<br>· 괄호 <b>{ } [ ]</b> 짝이 안 맞음<br><br>해당 부분을 고치고 다시 저장하면 정상으로 돌아옵니다.</p></div>';
+    }
+  },400);
+</script>
+
+</body>
+</html>
