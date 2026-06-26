@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ✏️ 수정: 브라우저 탭에 뜨는 제목 -->
+<title>김도현 — 프론트엔드 개발자</title>
+<!-- ✏️ 수정: 검색·공유 시 보이는 설명 -->
+<meta name="description" content="사용자가 머무는 인터페이스를 만드는 프론트엔드 개발자 김도현의 포트폴리오.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:   #E9E7E1;   /* 배경: 따뜻한 스톤 */
+    --surface: #F3F2EE;   /* 카드 표면 */
+    --ink:     #1A1A1D;   /* 본문 텍스트 */
+    --muted:   #6A675E;   /* 보조 텍스트 */
+    --line:    #D3D0C8;   /* 가는 구분선 */
+    --accent:  #2438FF;   /* 강조: 일렉트릭 코발트 */
+    --maxw: 1080px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter", system-ui, -apple-system, sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .wrap{ max-width:var(--maxw); margin-inline:auto; padding-inline:28px; }
+
+  .eyebrow{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 1.1rem;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(140%) blur(8px);
+    background:color-mix(in srgb, var(--paper) 82%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin-inline:auto;
+    padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .mark{
+    font-family:"Bricolage Grotesque", sans-serif;
+    font-weight:700; font-size:1.05rem; letter-spacing:-.01em;
+    text-decoration:none;
+  }
+  .mark span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:26px; }
+  .nav-links a{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.78rem; letter-spacing:.04em;
+    text-decoration:none; color:var(--muted);
+    transition:color .18s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  @media (max-width:560px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:118px 0 96px;
+  }
+  #grid{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%;
+    pointer-events:none;
+  }
+  .hero .wrap{ position:relative; z-index:1; }
+
+  .hero h1{
+    font-family:"Bricolage Grotesque", sans-serif;
+    font-weight:800;
+    font-size:clamp(3.1rem, 11vw, 7.2rem);
+    line-height:.92;
+    letter-spacing:-.035em;
+    margin:0;
+  }
+  .hero .tagline{
+    font-size:clamp(1.15rem, 2.6vw, 1.6rem);
+    max-width:30ch;
+    margin:1.4rem 0 0;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .hero .tagline b{ font-weight:600; color:var(--accent); }
+
+  .status{
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px;
+    margin-top:2.6rem;
+    font-family:"JetBrains Mono", monospace;
+    font-size:.82rem; color:var(--muted);
+  }
+  .status .dot{ width:7px; height:7px; background:var(--accent); border-radius:2px; }
+  .status .sep{ width:4px; height:4px; border-radius:50%; background:var(--line); }
+
+  /* ---------- Section frame ---------- */
+  .section{ padding:84px 0; }
+  .section + .section{ border-top:1px solid var(--line); }
+  .section h2{
+    font-family:"Bricolage Grotesque", sans-serif;
+    font-weight:700;
+    font-size:clamp(1.7rem, 4.4vw, 2.7rem);
+    letter-spacing:-.02em;
+    line-height:1.05;
+    margin:0 0 1.6rem;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:54px; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+  .about-grid p{ margin:0 0 1.1rem; max-width:54ch; }
+  .about-grid p:last-child{ margin-bottom:0; }
+  .stack-label{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 1rem;
+  }
+  .tags{ display:flex; flex-wrap:wrap; gap:9px; }
+  .tags span{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.8rem;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:var(--surface);
+  }
+
+  /* ---------- Work ---------- */
+  .projects{ display:flex; flex-direction:column; gap:18px; }
+  .project{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 32px;
+    transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .project:hover{
+    transform:translateY(-3px);
+    border-color:var(--accent);
+    box-shadow:0 14px 34px -22px rgba(36,56,255,.55);
+  }
+  .project:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .project-meta{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.7rem;
+  }
+  .project-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:18px;
+  }
+  .project h3{
+    font-family:"Bricolage Grotesque", sans-serif;
+    font-weight:700; font-size:1.5rem; letter-spacing:-.01em;
+    margin:0;
+  }
+  .project .arrow{
+    font-family:"JetBrains Mono", monospace;
+    color:var(--accent);
+    transition:transform .2s ease;
+    flex:none;
+  }
+  .project:hover .arrow{ transform:translate(3px,-3px); }
+  .project p{ margin:.7rem 0 0; color:var(--muted); max-width:60ch; }
+  .project .ptags{ margin-top:1rem; display:flex; flex-wrap:wrap; gap:7px; }
+  .project .ptags span{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.72rem; color:var(--muted);
+  }
+  .project .ptags span::before{ content:"#"; opacity:.5; }
+
+  /* ---------- Contact ---------- */
+  .contact p.lead{ font-size:1.15rem; max-width:46ch; margin:0 0 2rem; }
+  .links{ display:flex; flex-wrap:wrap; gap:12px; }
+  .links a{
+    font-family:"JetBrains Mono", monospace;
+    font-size:.85rem;
+    text-decoration:none;
+    padding:11px 18px;
+    border:1px solid var(--ink);
+    border-radius:999px;
+    transition:background .18s ease, color .18s ease;
+  }
+  .links a:hover{ background:var(--ink); color:var(--paper); }
+  .links a.primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .links a.primary:hover{ background:#1b2cd6; }
+
+  /* ---------- Footer ---------- */
+  footer{ border-top:1px solid var(--line); }
+  .foot-inner{
+    max-width:var(--maxw); margin-inline:auto; padding:28px;
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between;
+    font-family:"JetBrains Mono", monospace; font-size:.74rem; color:var(--muted);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="nav-inner">
+    <!-- ✏️ 수정: 로고/이니셜 -->
+    <a href="#top" class="mark">김도현<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#about">소개</a>
+      <a href="#work">작업</a>
+      <a href="#contact">연락</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <canvas id="grid" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow">Portfolio — Frontend Engineer</p>
+      <!-- ✏️ 수정: 이름 -->
+      <h1>김도현</h1>
+      <!-- ✏️ 수정: 한 줄 소개 -->
+      <p class="tagline">사용자가 머무는 <b>인터페이스</b>를 만듭니다. 디테일과 속도에 진심인 프론트엔드 개발자.</p>
+      <div class="status">
+        <!-- ✏️ 수정: 위치 -->
+        <span>서울, 대한민국</span>
+        <span class="sep"></span>
+        <span>현지 시각 <span id="clock">--:--:--</span></span>
+        <span class="sep"></span>
+        <span class="dot"></span>
+        <!-- ✏️ 수정: 현재 상태 -->
+        <span>새 프로젝트 협업 가능</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <p class="eyebrow">01 — 소개</p>
+      <h2>코드로 문제를 풀고, 화면으로 답을 보여줍니다.</h2>
+      <div class="about-grid">
+        <div>
+          <!-- ✏️ 수정: 자기소개 문단 -->
+          <p>5년 차 프론트엔드 개발자입니다. 복잡한 요구사항을 단순한 화면으로 정리하는 일을 좋아합니다. 빠르게 만들고, 사용자 반응을 보고, 다시 다듬는 과정을 반복합니다.</p>
+          <p>접근성과 성능을 기본값으로 두고 일합니다. 화려한 것보다 매일 써도 불편하지 않은 인터페이스가 좋은 인터페이스라고 믿습니다.</p>
+        </div>
+        <div>
+          <p class="stack-label">주로 쓰는 도구</p>
+          <!-- ✏️ 수정: 기술 스택 -->
+          <div class="tags">
+            <span>TypeScript</span>
+            <span>React</span>
+            <span>Next.js</span>
+            <span>Node.js</span>
+            <span>Tailwind</span>
+            <span>Figma</span>
+            <span>PostgreSQL</span>
+            <span>AWS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="section" id="work">
+      <p class="eyebrow">02 — 선택된 작업</p>
+      <h2>최근 만든 것들</h2>
+      <div class="projects">
+
+        <!-- ✏️ 수정: 프로젝트 1 (a href에 실제 링크) -->
+        <a class="project" href="#" target="_blank" rel="noopener">
+          <div class="project-meta">2025 · 웹 앱</div>
+          <div class="project-head">
+            <h3>Tide — 습관 추적 대시보드</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p>매일의 작은 기록을 한눈에 보여주는 대시보드. 오프라인 우선 설계로 네트워크 없이도 동작하며, 차트 렌더링을 60fps로 유지했습니다.</p>
+          <div class="ptags"><span>React</span><span>IndexedDB</span><span>D3</span></div>
+        </a>
+
+        <!-- ✏️ 수정: 프로젝트 2 -->
+        <a class="project" href="#" target="_blank" rel="noopener">
+          <div class="project-meta">2024 · 오픈소스</div>
+          <div class="project-head">
+            <h3>fetch-cache</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p>요청 중복을 제거하고 결과를 캐싱하는 경량 라이브러리. 번들 크기 2KB, 주간 다운로드 1.2만 회를 기록 중입니다.</p>
+          <div class="ptags"><span>TypeScript</span><span>Vitest</span><span>npm</span></div>
+        </a>
+
+        <!-- ✏️ 수정: 프로젝트 3 -->
+        <a class="project" href="#" target="_blank" rel="noopener">
+          <div class="project-meta">2024 · 팀 프로젝트</div>
+          <div class="project-head">
+            <h3>Bloom — 동네 가드닝 커뮤니티</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p>위치 기반으로 이웃과 식물을 나누는 서비스. 초기 디자인부터 배포까지 맡았고, 베타 3개월 만에 가입자 8천 명을 모았습니다.</p>
+          <div class="ptags"><span>Next.js</span><span>Supabase</span><span>Mapbox</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section contact" id="contact">
+      <p class="eyebrow">03 — 연락</p>
+      <h2>같이 만들어요.</h2>
+      <p class="lead">새 프로젝트, 협업, 또는 그냥 인사 — 무엇이든 편하게 보내주세요.</p>
+      <div class="links">
+        <!-- ✏️ 수정: 이메일·링크 주소 -->
+        <a class="primary" href="mailto:hello@example.com">이메일 보내기</a>
+        <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">이력서 (PDF)</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <span>© 2025 김도현</span>
+    <span>Built with HTML · Hosted on GitHub Pages</span>
+  </div>
+</footer>
+
+<script>
+  /* ---------- 현지 시각 시계 ---------- */
+  /* ✏️ 수정: 본인 시간대로 바꾸세요 (예: 'America/New_York', 'Europe/London') */
+  const OWNER_TZ = 'Asia/Seoul';
+  const clockEl = document.getElementById('clock');
+  function tick(){
+    try{
+      clockEl.textContent = new Intl.DateTimeFormat('en-GB', {
+        timeZone: OWNER_TZ, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
+      }).format(new Date());
+    }catch(e){ clockEl.textContent = new Date().toLocaleTimeString(); }
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- 히어로 배경: 마우스에 반응하는 모눈 ---------- */
+  (function(){
+    const canvas = document.getElementById('grid');
+    const hero = document.querySelector('.hero');
+    if(!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine   = window.matchMedia('(pointer: fine)').matches;
+
+    const GAP = 38, R = 130;
+    let w=0, h=0, dpr=Math.min(window.devicePixelRatio||1, 2);
+    let mouse = {x:-9999, y:-9999};
+    let raf = null;
+
+    const css = getComputedStyle(document.documentElement);
+    const accent = (css.getPropertyValue('--accent')||'#2438FF').trim();
+    const a = hexToRgb(accent);
+
+    function hexToRgb(hex){
+      const m = hex.replace('#','');
+      const n = m.length===3 ? m.split('').map(c=>c+c).join('') : m;
+      const i = parseInt(n,16);
+      return {r:(i>>16)&255, g:(i>>8)&255, b:i&255};
+    }
+
+    function resize(){
+      const rect = hero.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      canvas.width = w*dpr; canvas.height = h*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      draw();
+    }
+
+    function plus(x,y,s,col){
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x-s,y); ctx.lineTo(x+s,y);
+      ctx.moveTo(x,y-s); ctx.lineTo(x,y+s);
+      ctx.stroke();
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(let y=GAP/2; y<h; y+=GAP){
+        for(let x=GAP/2; x<w; x+=GAP){
+          let t = 0;
+          if(fine && !reduce){
+            const d = Math.hypot(x-mouse.x, y-mouse.y);
+            t = Math.max(0, 1 - d/R);
+          }
+          const base = 0.10;
+          const op = base + t*0.55;
+          const size = 3 + t*3.5;
+          const col = t>0.02
+            ? `rgba(${a.r},${a.g},${a.b},${op})`
+            : `rgba(26,26,29,${base})`;
+          plus(x, y, size, col);
+        }
+      }
+    }
+
+    function loop(){ draw(); raf = requestAnimationFrame(loop); }
+    function start(){ if(!raf && fine && !reduce) loop(); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } mouse.x=mouse.y=-9999; draw(); }
+
+    hero.addEventListener('mousemove', e=>{
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX-rect.left; mouse.y = e.clientY-rect.top;
+      start();
+    });
+    hero.addEventListener('mouseleave', stop);
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+</script>
+
+</body>
+</html>
